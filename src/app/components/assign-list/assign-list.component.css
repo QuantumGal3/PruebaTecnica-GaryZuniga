@@ -1,0 +1,41 @@
+.container {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.lists {
+  display: flex;
+  gap: 20px;
+}
+
+.available, .assigned {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+h3 {
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 8px;
+  margin: 5px 0;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+li:hover {
+  background-color: #e0e0e0;
+}

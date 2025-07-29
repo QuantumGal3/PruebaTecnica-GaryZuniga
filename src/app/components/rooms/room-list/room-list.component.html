@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Gestión de Salas de Cine</h2>
+    <a routerLink="/rooms/new" class="btn btn-primary">
+      <i class="bi bi-plus-circle"></i> Agregar Sala
+    </a>
+  </div>
+
+  <div class="row">
+    @for (room of rooms; track room.id; let i = $index) {
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header">
+            <h5 class="card-title mb-0">{{ room.name }}</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text">
+              <strong>Capacidad:</strong> {{ room.capacity }} personas
+            </p>
+            <p class="card-text">
+              <strong>Películas asignadas:</strong> {{ room.movies.length }}
+            </p>
+            <span
+              class="badge {{ getStatusClass(roomAvailabilities[i].status) }}"
+            >
+              {{ getStatusText(roomAvailabilities[i].status) }}
+            </span>
+          </div>
+          <div class="card-footer bg-white">
+            <button
+              class="btn btn-sm btn-outline-primary me-2"
+              [routerLink]="['/rooms', room.id]"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-sm btn-outline-success"
+              (click)="navigateToAssignMovies(room.id)"
+            >
+              Asignar Películas
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>

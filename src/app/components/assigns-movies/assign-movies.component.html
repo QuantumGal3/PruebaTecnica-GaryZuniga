@@ -1,0 +1,77 @@
+<div class="container mt-4">
+  <h2 class="mb-4">Asignar Películas a {{ room.name }}</h2>
+
+  @if (loading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  } @else {
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Películas Disponibles</h5>
+          </div>
+          <div class="card-body">
+            @if (availableMovies.length > 0) {
+              <ul class="list-group">
+                @for (movie of availableMovies; track movie.id) {
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ movie.title }}
+                    <button
+                      class="btn btn-sm btn-success"
+                      (click)="assignMovie(movie.id)"
+                    >
+                      <i class="bi bi-plus"></i> Asignar
+                    </button>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="alert alert-info">
+                No hay películas disponibles para asignar
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Películas Asignadas</h5>
+          </div>
+          <div class="card-body">
+            @if (assignedMovies.length > 0) {
+              <ul class="list-group">
+                @for (movie of assignedMovies; track movie.id) {
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ movie.title }}
+                    <button
+                      class="btn btn-sm btn-danger"
+                      (click)="removeMovie(movie.id)"
+                    >
+                      <i class="bi bi-dash"></i> Quitar
+                    </button>
+                  </li>
+                }
+              </ul>
+            } @else {
+              <div class="alert alert-warning">
+                No hay películas asignadas
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <button class="btn btn-secondary" (click)="goBack()">
+        Volver a la lista de salas
+      </button>
+    </div>
+  }
+</div>

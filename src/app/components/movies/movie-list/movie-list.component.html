@@ -1,0 +1,98 @@
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-md-8 mx-auto">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="searchMovies()"
+          placeholder="Buscar películas..."
+        >
+        <button class="btn btn-primary" (click)="searchMovies()">
+          Buscar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+  }
+
+  @if (error) {
+    <div class="alert alert-danger text-center">
+      {{ error }}
+    </div>
+  }
+
+  <div class="row">
+    @for (movie of filteredMovies; track movie.id) {
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img
+            [src]="movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'assets/no-image.jpg'"
+            class="card-img-top"
+            [alt]="movie.title"
+            style="height: 400px; object-fit: cover;"
+          >
+          <div class="card-body">
+            <h5 class="card-title">{{ movie.title }}</h5>
+            <p class="text-muted">
+              {{ movie.release_date | date:'mediumDate' }}
+              <span class="badge bg-primary ms-2">
+                ★ {{ movie.vote_average | number:'1.1-1' }}
+              </span>
+            </p>
+            <p class="card-text">
+              {{ movie.overview ? (movie.overview.length > 100 ? (movie.overview | slice:0:100) + '...' : movie.overview) : 'Descripción no disponible' }}
+            </p>
+          </div>
+          <div class="card-footer">
+            <a
+              [routerLink]="['/movies', movie.id]"
+              class="btn btn-sm btn-primary"
+            >
+              Ver detalles
+            </a>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <div class="col-12 text-center my-5">
+        <h4>No se encontraron películas</h4>
+      </div>
+    }
+  </div>
+
+  @if (filteredMovies.length > 0) {
+    <nav class="mt-4">
+      <ul class="pagination justify-content-center">
+        <li class="page-item">
+          <button
+            class="page-link"
+            (click)="changePage(currentPage - 1)"
+            [disabled]="currentPage === 1"
+          >
+            Anterior
+          </button>
+        </li>
+        <li class="page-item">
+          <span class="page-link">{{ currentPage }}</span>
+        </li>
+        <li class="page-item">
+          <button
+            class="page-link"
+            (click)="changePage(currentPage + 1)"
+          >
+            Siguiente
+          </button>
+        </li>
+      </ul>
+    </nav>
+  }
+</div>

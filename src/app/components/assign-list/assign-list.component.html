@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Lista de Películas</h2>
+
+  <div class="lists">
+    <div class="available">
+      <h3>Disponibles</h3>
+      <ul>
+        @for (movie of movies(); track movie.id) {
+          <li (click)="assignMovie(movie)">
+            {{ movie.title }}
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="assigned">
+      <h3>Asignadas</h3>
+      @if (assignedMovies().length > 0) {
+        <ul>
+          @for (movie of assignedMovies(); track movie.id) {
+            <li (click)="unassignMovie(movie)">
+              {{ movie.title }}
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>No hay películas asignadas</p>
+      }
+    </div>
+  </div>
+</div>

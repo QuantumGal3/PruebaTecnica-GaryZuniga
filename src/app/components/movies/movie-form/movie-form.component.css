@@ -1,0 +1,14 @@
+
+textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.875em;
+}
